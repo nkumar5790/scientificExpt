@@ -67,6 +67,7 @@ if __name__ == "__main__":
         "The Earth is flat.",
         "The quick brown fox jumps over the lazy dog.",
         "The sky is blue.",
+        "The sun is bright.",
     ]
 
     classification_results = classifier.zero_shot_classification_batch(texts)
