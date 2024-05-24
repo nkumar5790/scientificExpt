@@ -81,22 +81,22 @@ class ReservoirSamplingMaxOccurrence:
 if __name__ == "__main__":
     # Let's say we have a stream of numbers from 1 to 100, and we want
     # to get a random sample of 10.
-    # stream = range(1, 101)
-    # k = 10
-    # sample = reservoir_sampling(stream, k)
-    # print("Random sample of size", k, "from the stream:", sample)
-    #
-    # # Usage
-    # reservoir_size = 10
-    # sampler = ReservoirSamplingMaxOccurrence(reservoir_size)
-    # # Example: Process a stream of items
-    # stream = ['a', 'b', 'a', 'c', 'a', 'b', 'd', 'a', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p']
-    # for item in stream:
-    #     sampler.process_item(item)
-    # # Get the samples from the reservoir
-    # samples = sampler.get_samples()
-    # print("Reservoir:", samples)
+    stream = range(1, 101)
+    k = 10
+    sample = reservoir_sampling(stream, k)
+    print("Random sample of size", k, "from the stream:", sample)
 
-    stream = [('apple', 3), ('banana', 2), ('orange', 5), ('grape', 1), ('peach', 4)]
-    k = 3
-    print(reservoir_sampling_max(stream, k))
+    # Usage
+    reservoir_size = 10
+    sampler = ReservoirSamplingMaxOccurrence(reservoir_size)
+    # Example: Process a stream of items
+    stream = ['a', 'b', 'a', 'c', 'a', 'b', 'd', 'a', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p']
+    for item in stream:
+        sampler.process_item(item)
+    # Get the samples from the reservoir
+    samples = sampler.get_samples()
+    print("Reservoir:", samples)
+
+    # stream = [('apple', 3), ('banana', 21), ('orange', 5), ('grape', 1), ('peach', 4)]
+    # k = 3
+    # print(reservoir_sampling_max(stream, k))
