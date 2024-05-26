@@ -14,3 +14,6 @@ NER
 
 DS /NLP
   https://github.com/ChanCheeKean/DataScience/tree/main/13%20-%20NLP
+
+Algorithm
+https://github.com/TheAlgorithms/Python/blob/master/hashes/enigma_machine.py
