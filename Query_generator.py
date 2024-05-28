@@ -22,11 +22,35 @@ def get_typ1_kw(kw, db='etl_refresh_prod', table=None, source='exp'):
 
     if (not table) and (source == 'exp'):
         table = 'ln_flattened_rawdata'
-        typ2_base_sample_query = f'''T2.website,T1.exp.member_id ,T1.exp.date_from,exp.date_to, T1.exp.description
+        typ2_base_sample_query = f''' SELECT T2.website,T1.exp.member_id ,T1.exp.date_from,exp.date_to, T1.exp.description
         FROM {db}.{table} as T1
         join {db}."lnk2domain_mapping" as T2
         ON T1.exp.company_url = T2.ln_company
         '''
+        main_kw = f'''where lower(T1.exp.description) like '% {main_kw.strip()} %' '''
+
+        for aux in kw_list[1:]:
+
+            if kw_count < aux_kw_count:
+                search_txt = f''' lower(T1.exp.description) like '% {aux.strip()} %' '''
+
+                final_aux_sring = final_aux_sring + search_txt + 'OR'
+
+            elif kw_count == aux_kw_count:
+                search_txt = f''' lower(T1.exp.description) like '% {aux.strip()} %' '''
+                final_aux_sring = final_aux_sring + search_txt
+
+            kw_count = kw_count + 1
+
+        if len(kw_list) > 1:
+            query_2_sample = typ2_base_sample_query + main_kw + final_aux_sring
+
+        if len(kw_list) == 1:
+            query_2_sample = typ2_base_sample_query + main_kw
+
+        print(query_2_sample)
+        return query_2_sample
+
     elif (not table) and (source == 'job'):
         table = 'linkedin_jobs_coresignal_rawdata'
         typ2_base_sample_query = f'''SELECT T2.website , created ,last_updated, lower(description) as description
@@ -38,17 +62,17 @@ def get_typ1_kw(kw, db='etl_refresh_prod', table=None, source='exp'):
         print("ERROR: Please select the write source i.e\n 'exp' : for linkden experience \n 'job' : for Jobs data  ")
         return ("ERROR: Please select the write source i.e 'exp' : for linkden experience \n 'job' : for Jobs data  ")
 
-    main_kw = f'''where description like '% {main_kw.strip()} %' '''
+    main_kw = f'''where lower(description) like '% {main_kw.strip()} %' '''
 
     for aux in kw_list[1:]:
 
         if kw_count < aux_kw_count:
-            search_txt = f''' description like '% {aux.strip()} %' '''
+            search_txt = f''' lower(description) like '% {aux.strip()} %' '''
 
             final_aux_sring = final_aux_sring + search_txt + 'OR'
 
         elif kw_count == aux_kw_count:
-            search_txt = f''' description like '% {aux.strip()} %' '''
+            search_txt = f''' lower(description) like '% {aux.strip()} %' '''
             final_aux_sring = final_aux_sring + search_txt
 
         kw_count = kw_count + 1
@@ -81,7 +105,7 @@ def get_typ2_kw(kw, db='etl_refresh_prod', table=None, source='exp'):
             FROM {db}.{table} as T1
             join {db}."lnk2domain_mapping" as T2
             ON T1.exp.company_url = T2.ln_company
-            where T1.exp.description like '% {kw_list[0].strip()} %' and T1.exp.description like '% {kw_list[1].strip()} %' 
+            where lower(T1.exp.description) like '% {kw_list[0].strip()} %' and lower(T1.exp.description) like '% {kw_list[1].strip()} %' 
             '''
             print(typ2_base_sample_query)
             return
@@ -92,7 +116,7 @@ def get_typ2_kw(kw, db='etl_refresh_prod', table=None, source='exp'):
             FROM {db}.{table} as T1
             join {db}."lnk2domain_mapping" as T2
             ON T1.company_url = T2.ln_company
-            where t1.description like '% {kw_list[0].strip()} %' and t1.description like '% {kw_list[1].strip()} %'
+            where lower(t1.description) like '% {kw_list[0].strip()} %' and lower(t1.description) like '% {kw_list[1].strip()} %'
             '''
             print(typ2_base_sample_query)
             return
@@ -113,17 +137,17 @@ def get_typ2_kw(kw, db='etl_refresh_prod', table=None, source='exp'):
         join etl_refresh_prod."lnk2domain_mapping" as T2
         ON T1.exp.company_url = T2.ln_company
             '''
-        main_kw = f'''where T1.exp.description like '% {main_kw.strip()} %' '''
+        main_kw = f'''where lower(T1.exp.description) like '% {main_kw.strip()} %' '''
 
         for aux in kw_list[1:]:
 
             if kw_count < aux_kw_count:
-                search_txt = f''' T1.exp.description like '% {aux.strip()} %' '''
+                search_txt = f''' lower(T1.exp.description) like '% {aux.strip()} %' '''
 
                 final_aux_sring = final_aux_sring + search_txt + 'OR'
 
             elif kw_count == aux_kw_count:
-                search_txt = f''' T1.exp.description like '% {aux.strip()} %' '''
+                search_txt = f''' lower(T1.exp.description) like '% {aux.strip()} %' '''
                 final_aux_sring = final_aux_sring + search_txt + ')'
 
             kw_count = kw_count + 1
@@ -144,17 +168,17 @@ def get_typ2_kw(kw, db='etl_refresh_prod', table=None, source='exp'):
         print("ERROR: Please select the write source i.e\n 'exp' : for linkden experience \n 'job' : for Jobs data  ")
         return ("ERROR: Please select the write source i.e\n 'exp' : for linkden experience \n 'job' : for Jobs data  ")
 
-    main_kw = f'''where description like '% {main_kw.strip()} %' '''
+    main_kw = f'''where lower(description) like '% {main_kw.strip()} %' '''
 
     for aux in kw_list[1:]:
 
         if kw_count < aux_kw_count:
-            search_txt = f''' description like '% {aux.strip()} %' '''
+            search_txt = f''' lower(description) like '% {aux.strip()} %' '''
 
             final_aux_sring = final_aux_sring + search_txt + 'OR'
 
         elif kw_count == aux_kw_count:
-            search_txt = f''' description like '% {aux.strip()} %' '''
+            search_txt = f''' lower(description) like '% {aux.strip()} %' '''
             final_aux_sring = final_aux_sring + search_txt + ')'
 
         kw_count = kw_count + 1
