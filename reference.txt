@@ -1,0 +1,19 @@
+BERT 
+  https://github.com/karpathy/llama2.c/blob/master/tokenizer.py
+  https://github.com/uygarkurt/BERT-PyTorch/blob/main/BERT.py
+  https://github.com/NielsRogge/Transformers-Tutorials/blob/master/BERT/Fine_tuning_BERT_(and_friends)_for_multi_label_text_classification.ipynb
+  https://github.com/TheAlgorithms/Python/blob/master/hashes/enigma_machine.py
+
+LLM 
+  https://towardsdatascience.com/performing-customer-analytics-with-langchain-and-llms-0af4ea38f7b5
+
+NER 
+  https://medium.com/@sapphireduffy/is-flair-a-suitable-alternative-to-spacy-6f55192bfb01
+  https://github.com/ChanCheeKean/DataScience/blob/main/13%20-%20NLP/D05%20-%20Named%20Entity%20Recognition.ipynb
+  https://medium.com/@balci.pelin/ner-8eb9694ccad3
+
+DS /NLP
+  https://github.com/ChanCheeKean/DataScience/tree/main/13%20-%20NLP
+
+Algorithm
+https://github.com/TheAlgorithms/Python/blob/master/hashes/enigma_machine.py
